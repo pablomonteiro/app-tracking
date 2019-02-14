@@ -6,7 +6,7 @@
 
     export default {
         props: ['buttonTitle'],
-        methods: {
+        methods : {
             buttonClick() {
                 this.$emit('buttonClickAction');
             }
