@@ -1,20 +1,48 @@
 <template>
   <div id="home">
-    <label> Keyword </label>
-    <input type="search" id="keyword_id" @input="keyword_search = $event.target.value" placeholder="Digit a keyword to search" />
-    <button-custom @buttonClickAction="searchProductsByKeyword()" buttonTitle="Search"/>
-    <input v-show="false" type="search" id="keyword_id" @input="keyword_search = $event.target.value; testInput()" placeholder="Teste" />
-   
-    <table>
-      
-      <tr>
-        <th>Applications</th>
-      </tr>
-      <tr v-for="product in products">
-        <td><router-link :to="'/application/'+product.id"> {{ product.name }} </router-link></td>
-      </tr>
-
-    </table>
+    <div class="panel-group" >
+        <div class="panel panel-default panel-filter">
+            <div class="alert alert-primary" role="alert">
+            <h3 class="alert-heading title">App Traking</h3>
+            </div>
+            <div class="panel-colapse">
+                <div class="panel-body">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-md-1">
+                                <label>Keyword</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="search" id="keyword_id" @input="keyword_search = $event.target.value" placeholder="Digit a keyword to search" />
+                            </div>
+                            <div class="col-md-2">
+                                <button-custom @buttonClickAction="searchProductsByKeyword()" buttonTitle="Search"/>
+                            </div>
+                        </div>
+                        <input v-show="false" type="search" id="keyword_id" @input="keyword_search = $event.target.value; testInput()" placeholder="Teste" />
+                        <div class="row">
+                            <div class="col-12">
+                                <table class="table">
+                                    <thead class="alert alert-secondary">
+                                    <tr>
+                                        <th scoped="col">ID</th>
+                                        <th scoped="col">Application</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="product in products">
+                                        <td><router-link :to="'/application/'+product.id"> {{ product.id }} </router-link></td>
+                                        <td><router-link :to="'/application/'+product.id"> {{ product.name }} </router-link></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
   </div>
 </template>
 
@@ -72,20 +100,25 @@
 </script>
 
 <style scoped>
-  table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
+
+  .table {
+    margin-top: 15px;
+  }
+
+  .table th, .table td {
+    padding: 7px; 
+  }
+
+  input {
     width: 100%;
   }
 
-  td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
+  .label {
+    text-align: bold;
   }
 
-  tr:nth-child(even) {
-    background-color: #dddddd;
+  .title {
+    text-align: center;
   }
 
 </style>
