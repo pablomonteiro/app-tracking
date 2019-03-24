@@ -31,8 +31,8 @@
                                     </thead>
                                     <tbody>
                                     <tr v-for="product in products">
-                                        <td><router-link :to="'/application/'+product.id"> {{ product.id }} </router-link></td>
-                                        <td><router-link :to="'/application/'+product.id"> {{ product.name }} </router-link></td>
+                                        <td><router-link :to="'/application/'+product._id"> {{ product._id }} </router-link></td>
+                                        <td><router-link :to="'/application/'+product._id"> {{ product.name }} </router-link></td>
                                     </tr>
                                     </tbody>
                                 </table>

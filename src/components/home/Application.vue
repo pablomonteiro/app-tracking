@@ -12,7 +12,7 @@
                 <div class="col-12">
                     <div class="row">
                         <div class="col-md-12 app-description">
-                            <h5> {{ application.id }} - {{ application.name }} </h5>
+                            <h5> {{ application.name }} </h5>
                         </div>
                     </div>
                     <div class="row">
@@ -20,14 +20,12 @@
                             <table class="table">
                                 <thead class="alert alert-secondary">
                                     <tr>
-                                        <th scoped="col">ID</th>
                                         <th scoped="col">Keyword</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="keyword in keywords">
-                                        <td>{{ keyword.id }}</td>
-                                        <td>{{ keyword.description }}</td>
+                                    <tr v-for="keyword in application.keywords">
+                                        <td>{{ keyword }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -46,15 +44,10 @@
     export default {
 
         created() {
-            var urlApplication = _SERVER + '/getApplicationData/'+ this.$route.params.id;
+            var urlApplication = _SERVER + '/application/v1/findApplicationById/'+ this.$route.params.id;
             this.$http.get(urlApplication)
                 .then(response => response.json())
-                .then(application => this.application = application);
-
-            var urlKeywordsByApplication = _SERVER + '/getKeywordsByApplication/'+ this.$route.params.id;
-            this.$http.get(urlKeywordsByApplication)
-                .then(response => response.json())
-                .then(keywords => this.keywords = keywords)
+                .then(application => this.application = application)
         },
 
         data() {
