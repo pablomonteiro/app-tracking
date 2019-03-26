@@ -1,14 +1,20 @@
 <template>
-    <button type="button" :class="buttonClass" @click="buttonClick()"> {{ buttonTitle }} </button>
+    <button type="button" :style="cssWidth" :class="buttonClass" @click="buttonClick()"> {{ buttonTitle }} </button>
 </template>
 
 <script>
 
     export default {
-        props: ['buttonTitle', 'buttonClass'],
+        props: ['buttonTitle', 'buttonClass', 'buttonWidth'],
         methods : {
             buttonClick() {
                 this.$emit('buttonClickAction');
+            }
+        },
+
+        data() {
+            return {
+                "cssWidth": "width: " + this.buttonWidth
             }
         }
     }
@@ -17,18 +23,24 @@
 
 <style scoped>
     .btn_search {
-        width: 100%;
+        width: this.buttonWidth;
     }
 
     .btn_remove {
-        width: 100px;
+        width: this.buttonWidth;
         background: red;
         color: white;
     }
 
     .btn_add {
-        width: 100%;
+        width: this.buttonWidth;
         background: green;
+        color: white;
+    }
+
+    .btn_confirm {
+        width: this.buttonWidth;
+        background: #007bff;
         color: white;
     }
 

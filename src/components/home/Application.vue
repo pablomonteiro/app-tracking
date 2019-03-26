@@ -99,7 +99,7 @@
     }
 </script>
 
-<style>
+<style scoped>
 
   .table {
     margin-top: 15px;

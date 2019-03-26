@@ -4,6 +4,8 @@
       <ul>
         <li>
           <router-link :to="'/'"> Home </router-link>
+          |
+          <router-link :to="'/application-new'"> New Application </router-link>
         </li>
       </ul>
     </nav>

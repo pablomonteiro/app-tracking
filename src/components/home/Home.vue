@@ -13,10 +13,10 @@
                                 <label>Keyword</label>
                             </div>
                             <div class="col-md-9">
-                                <input type="search" id="keyword_id" @input="keyword_search = $event.target.value" placeholder="Digit a keyword to search" />
+                                <input type="search" id="keyword_id" @input="keyword_search = $event.target.value.toUpperCase()" placeholder="Digit a keyword to search" />
                             </div>
                             <div class="col-md-2">
-                                <button-custom @buttonClickAction="searchProductsByKeyword()" buttonTitle="Search"/>
+                                <button-custom @buttonClickAction="searchApplicationsByKeyword()" buttonTitle="Search"/>
                             </div>
                         </div>
                         <input v-show="false" type="search" id="keyword_id" @input="keyword_search = $event.target.value; testInput()" placeholder="Teste" />
@@ -25,14 +25,18 @@
                                 <table class="table">
                                     <thead class="alert alert-secondary">
                                     <tr>
-                                        <th scoped="col">ID</th>
                                         <th scoped="col">Application</th>
+                                        <th scoped="col"></th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr v-for="product in products">
-                                        <td><router-link :to="'/application/'+product._id"> {{ product._id }} </router-link></td>
-                                        <td><router-link :to="'/application/'+product._id"> {{ product.name }} </router-link></td>
+                                    <tr v-for="application in applications">
+                                        <td><router-link :to="'/application/'+application._id"> {{ application.name }} </router-link></td>
+                                        <td>
+                                          <div align="right">
+                                            <button-custom buttonClass="btn_remove" buttonTitle="Remove" @buttonClickAction="removeApplication(application._id)"/>
+                                          </div>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -59,13 +63,13 @@
     
     data() {
       return {
-        products: [],
+        applications: [],
         keyword_search: ''
       }
     },
 
     methods: {
-      searchProductsByKeyword() {
+      searchApplicationsByKeyword() {
         if(this.keyword_search) {
           this.findByKeyword();
         } else {
@@ -78,7 +82,7 @@
           var url = _SERVER + '/application/v1/findByKeyword/' + this.keyword_search;
           this.$http.get(url)
             .then(response => response.json())
-            .then(products => this.products = products,
+            .then(applications => this.applications = applications,
                   error  => console.log(error));
       },
 
@@ -86,12 +90,20 @@
           var url = _SERVER + '/application/v1/all';
           this.$http.get(url)
             .then(response => response.json())
-            .then(products => this.products = products,
+            .then(applications => this.applications = applications,
+                  error  => console.log(error));
+      },
+
+      removeApplication(id) {
+        var url = _SERVER + '/application/v1/deleteApplicationById/'+id;
+        this.$http.delete(url)
+            .then(response => response.json())
+            .then(applications => this.applications = applications,
                   error  => console.log(error));
       },
 
       testInput() {
-        this.searchProductsByKeyword();
+        this.searchApplicationsByKeyword();
       }
 
     }
